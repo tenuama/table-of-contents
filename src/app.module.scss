@@ -1,0 +1,31 @@
+$border-color: #f0f0f0;
+
+.app {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.header {
+  height: 50px;
+  border-bottom: 1px solid $border-color;
+}
+
+.footer {
+  height: 50px;
+  border-top: 1px solid $border-color;
+}
+
+.main {
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.toc {
+  box-sizing: border-box;
+  width: 216px;
+  padding: 24px 32px;
+  border-right: 1px solid $border-color;
+}
