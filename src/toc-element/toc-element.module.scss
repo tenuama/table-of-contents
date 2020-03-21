@@ -1,15 +1,24 @@
-.toc-page {
+.toc-element {
 	display: flex;
 	padding-top: 8px;
 	transition: background-color .2s;
+	list-style-type: none;
 
 	&:hover {
-		background-color: #f4f4f4;
+		background-color: var(--bg-color);
 	}
 
 	&--selected {
 		letter-spacing: -.4px;
 		font-weight: bold;
+	}
+
+	&--highlighted {
+		background-color: var(--bg-color);
+
+		&:hover {
+			background-color: var(--bg-color-dark);
+		}
 	}
 }
 
@@ -20,26 +29,20 @@
 	line-height: 16px;
 	padding: 0 0 8px 18px;
 	margin: 0 32px;
+	min-width: 0;
+	text-decoration: none;
+	color: var(--active-text-color);
 }
 
 .arrow {
 	position: absolute;
 	left: 0;
 	vertical-align: middle;
-	fill: #3C3D40;
+	fill: var(--arrow-color);
 	transition: transform .2s;
 	flex: none;
 
 	&--opened {
 		transform: rotate(90deg);
 	}
-}
-
-.list {
-	padding-left: 8px;
-	margin-top: 0;
-}
-
-.child {
-	list-style-type: none;
 }

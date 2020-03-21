@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../app-context';
-import { TocPage } from '../toc-page/toc-page';
+import { PageElement } from '../page-element/page-element';
 
 import s from './toc.module.scss';
 
@@ -11,18 +11,19 @@ export function Toc(): JSX.Element | null {
 	}
 
 	const content = state.topLevelIds.map((id: string) => {
-		const page = state.entities.pages[id];
 		return (
-			<TocPage
-				{ ...page }
+			<PageElement
 				key={ id }
+				id={ id }
 			/>
 		);
 	});
 
 	return (
-		<div className={ s.toc }>
-			{ content }
-		</div>
+		<nav>
+			<ul className={ s.toc }>
+				{ content }
+			</ul>
+		</nav>
 	);
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer } from 'react';
-import { Toc } from './toc/toc';
-import { AppContext } from './app-context';
-import { TocData } from './interfaces';
-import { appReducer, SET_DATA } from './reducer';
+import { Toc } from '../toc/toc';
+import { AppContext } from '../app-context';
+import { TocData } from '../interfaces';
+import { appReducer, SET_DATA } from '../reducer';
 
 import s from './app.module.scss';
 

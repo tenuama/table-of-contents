@@ -11,7 +11,7 @@ export interface Page {
 export interface Anchor {
 	id: string;
 	title: string;
-	url: number;
+	url: string;
 	anchor: string;
 	level: number;
 }
