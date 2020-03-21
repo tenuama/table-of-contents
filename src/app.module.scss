@@ -1,31 +1,28 @@
 $border-color: #f0f0f0;
 
 .app {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	color: rgba(39, 40, 44, 0.70);
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 16px;
 }
 
 .header {
-  height: 50px;
-  border-bottom: 1px solid $border-color;
+	height: 50px;
+	border-bottom: 1px solid $border-color;
 }
 
 .footer {
-  height: 50px;
-  border-top: 1px solid $border-color;
+	height: 50px;
+	border-top: 1px solid $border-color;
 }
 
 .main {
-  flex: 1 1 auto;
-  display: flex;
-}
-
-.toc {
-  box-sizing: border-box;
-  width: 216px;
-  padding: 24px 32px;
-  border-right: 1px solid $border-color;
+	flex: 1 1 auto;
+	display: flex;
 }

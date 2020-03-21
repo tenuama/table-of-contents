@@ -1,0 +1,10 @@
+$border-color: #f0f0f0;
+
+.toc {
+	box-sizing: border-box;
+	width: 216px;
+	padding: 24px 0;
+	border-right: 1px solid $border-color;
+	text-align: left;
+	overfloy-y: auto;
+}

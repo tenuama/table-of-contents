@@ -22,4 +22,10 @@ export interface TocData {
 		anchors: Record<string, Anchor>;
 	};
 	topLevelIds: string[];
+	activeId: string | null;
+}
+
+export interface Action {
+	type: string;
+	payload: TocData | null;
 }

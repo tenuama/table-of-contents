@@ -1,4 +1,15 @@
 import React from 'react';
 import { TocData } from './interfaces';
+import { SetActiveIdMessage, SetData } from './reducer';
 
-export const AppContext = React.createContext<TocData | null>(null);
+interface IContext {
+	state: TocData | null;
+	dispatch: (action: SetData | SetActiveIdMessage) => void;
+}
+
+export const AppContext = React.createContext<IContext>(
+	{
+		state: null,
+		dispatch: () => {},
+	}
+);

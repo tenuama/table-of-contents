@@ -1,0 +1,45 @@
+.toc-page {
+	display: flex;
+	padding-top: 8px;
+	transition: background-color .2s;
+
+	&:hover {
+		background-color: #f4f4f4;
+	}
+
+	&--selected {
+		letter-spacing: -.4px;
+		font-weight: bold;
+	}
+}
+
+.title {
+	position: relative;
+	cursor: pointer;
+	font-size: 12px;
+	line-height: 16px;
+	padding: 0 0 8px 18px;
+	margin: 0 32px;
+}
+
+.arrow {
+	position: absolute;
+	left: 0;
+	vertical-align: middle;
+	fill: #3C3D40;
+	transition: transform .2s;
+	flex: none;
+
+	&--opened {
+		transform: rotate(90deg);
+	}
+}
+
+.list {
+	padding-left: 8px;
+	margin-top: 0;
+}
+
+.child {
+	list-style-type: none;
+}
