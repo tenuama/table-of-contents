@@ -1,7 +1,8 @@
 .toc-element {
 	display: flex;
 	padding-top: 8px;
-	transition: background-color .2s;
+	transition: background-color 200ms;
+	background-color: transparent;
 	list-style-type: none;
 
 	&:hover {

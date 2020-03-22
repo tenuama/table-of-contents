@@ -23,6 +23,7 @@ export interface TocData {
 	};
 	topLevelIds: string[];
 	activeId: string | null;
+	openedIds: Set<string>;
 }
 
 export interface Action {

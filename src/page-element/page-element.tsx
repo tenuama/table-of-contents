@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from '../app-context';
 import { assert } from '../helpers';
-import { SET_ACTIVE_ID } from '../reducer';
+import { SET_ACTIVE_ID, TOGGLE_PAGE } from '../reducer';
 import { TocElement } from '../toc-element/toc-element';
 import { AnchorElement } from '../anchor-element/anchor-element';
 
@@ -16,8 +16,8 @@ export function PageElement(props: PageElementProps): JSX.Element {
 	assert(state !== null, 'Page element render failed: state is null');
 	const page = state.entities.pages[props.id];
 	const { id, pages, anchors } = page;
-	const [opened, setOpened] = useState(false);
 	const isActive = state.activeId === id;
+	const isOpened = state.openedIds.has(id);
 
 	const pageElements = pages && pages.map((pageId: string) => {
 		return (
@@ -38,12 +38,12 @@ export function PageElement(props: PageElementProps): JSX.Element {
 				level={ page.level }
 				url={ page.url }
 				isActive={ isActive }
-				isOpened={ opened }
-				isHighlighted={ isActive && anchors && opened }
+				isOpened={ isOpened }
+				isHighlighted={ isActive && anchors && isOpened }
 				onClick={ onClick }
 				onArrowClick={ pages ? onArrowClick : undefined }
 			/>
-			{ pages && opened && (
+			{ pages && isOpened && (
 				<ul className={ s.list }>
 					{ isActive && anchorElements }
 					{ pageElements }
@@ -65,17 +65,16 @@ export function PageElement(props: PageElementProps): JSX.Element {
 				activeId: id,
 			},
 		});
-
-		if (pages && !opened) {
-			setOpened(!opened);
-		}
 	}
 
 	function onArrowClick(e: React.MouseEvent): void {
 		e.preventDefault();
 
-		if (pages) {
-			setOpened(!opened);
-		}
+		dispatch({
+			type: TOGGLE_PAGE,
+			payload: {
+				pageId: id,
+			},
+		});
 	}
 }

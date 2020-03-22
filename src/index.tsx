@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './app/app';
+import { App, TocAPI } from './app/app';
 
 import './index.css';
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<App ref={ (ref: TocAPI) => (window as any).api = ref }/>, document.getElementById('root'));

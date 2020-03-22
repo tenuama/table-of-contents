@@ -1,12 +1,16 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useImperativeHandle, useReducer } from 'react';
 import { Toc } from '../toc/toc';
 import { AppContext } from '../app-context';
 import { TocData } from '../interfaces';
-import { appReducer, SET_DATA } from '../reducer';
+import { appReducer, SET_ACTIVE_ID, SET_DATA } from '../reducer';
 
 import s from './app.module.scss';
 
-export function App(): JSX.Element {
+export interface TocAPI {
+	setActiveId: (activeId: string | null) => void;
+}
+
+export const App = React.forwardRef((props: object, ref: React.Ref<TocAPI>) => {
 	const [state, dispatch] = useReducer(appReducer, null);
 
 	useEffect(
@@ -26,12 +30,28 @@ export function App(): JSX.Element {
 							payload: {
 								...json,
 								activeId: null,
+								openedIds: new Set(),
 							},
 						});
 					}
 				});
 			return () => void (isMounted = false);
 		},
+		[]
+	);
+
+	useImperativeHandle(
+		ref,
+		() => ({
+			setActiveId: (activeId: string | null) => {
+				dispatch({
+					type: SET_ACTIVE_ID,
+					payload: {
+						activeId: activeId,
+					},
+				});
+			},
+		}),
 		[]
 	);
 
@@ -48,4 +68,4 @@ export function App(): JSX.Element {
 			</div>
 		</AppContext.Provider>
 	);
-}
+});
