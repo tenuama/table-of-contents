@@ -1,5 +1,5 @@
-import { appReducer, SET_ACTIVE_ID, SET_DATA, TOGGLE_PAGE } from './reducer';
-import { TocData } from './interfaces';
+import { appReducer, SET_ACTIVE_ID, SET_DATA, TOGGLE_PAGE } from '../reducer';
+import { TocData } from '../interfaces';
 
 function createState(): TocData {
 	return ({

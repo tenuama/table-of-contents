@@ -4,8 +4,6 @@ import { ReactComponent as Arrow } from '../images/arrow.svg';
 
 import s from './toc-element.module.scss';
 
-const RIGHT_MARGIN = 14;
-
 interface TocElementProps {
 	title: string;
 	level: number;
@@ -20,14 +18,18 @@ interface TocElementProps {
 export function TocElement(props: TocElementProps): JSX.Element {
 	const { title, level, url, isActive, isOpened, isHighlighted, onClick, onArrowClick } = props;
 	const Tag = url ? 'a' : 'span';
+	const variables = {
+		'--node-level': level,
+	} as unknown as React.CSSProperties;
+
 	return (
 		<li
-			style={ { paddingLeft: RIGHT_MARGIN * level + 'px' } }
 			className={ classNames(
 				s['toc-element'],
 				isActive && s['toc-element--selected'],
 				isHighlighted && s['toc-element--highlighted']
 			) }
+			style={ variables }
 			onClick={ onClick }
 		>
 			<Tag href={ url } className={ s.title }>
