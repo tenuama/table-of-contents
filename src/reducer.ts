@@ -49,34 +49,38 @@ export function appReducer(state: TocData | null, action: Action): TocData | nul
 				return state;
 			}
 
-			state.openedIds.add(page.id);
+			const openedIds = new Set(state.openedIds);
+
+			openedIds.add(page.id);
 			while (page.parentId) {
 				page = state.entities.pages[page.parentId];
 				if (!page) {
 					return state;
 				}
-				state.openedIds.add(page.id);
+				openedIds.add(page.id);
 			}
 
 			return {
 				...state,
 				activeId: action.payload.activeId,
-				openedIds: state.openedIds,
+				openedIds: openedIds,
 			};
 		case TOGGLE_PAGE:
 			if (state === null) {
 				return null;
 			}
 
-			if (state.openedIds.has(action.payload.pageId)) {
-				state.openedIds.delete(action.payload.pageId);
+			const newOpenedIds = new Set(state.openedIds);
+
+			if (newOpenedIds.has(action.payload.pageId)) {
+				newOpenedIds.delete(action.payload.pageId);
 			} else {
-				state.openedIds.add(action.payload.pageId);
+				newOpenedIds.add(action.payload.pageId);
 			}
 
 			return {
 				...state,
-				openedIds: state.openedIds,
+				openedIds: newOpenedIds,
 			};
 		default:
 			return state;

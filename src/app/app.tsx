@@ -1,7 +1,7 @@
 import React, { useEffect, useImperativeHandle, useReducer } from 'react';
 import { Toc } from '../toc/toc';
 import { AppContext } from '../app-context';
-import { TocData } from '../interfaces';
+import { JSONData } from '../interfaces';
 import { appReducer, SET_ACTIVE_ID, SET_DATA } from '../reducer';
 
 import s from './app.module.scss';
@@ -23,7 +23,7 @@ export const App = React.forwardRef((props: object, ref: React.Ref<TocAPI>) => {
 					}
 					return response.json();
 				})
-				.then((json: TocData) => {
+				.then((json: JSONData) => {
 					if (isMounted) {
 						dispatch({
 							type: SET_DATA,

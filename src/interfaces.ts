@@ -16,12 +16,15 @@ export interface Anchor {
 	level: number;
 }
 
-export interface TocData {
+export interface JSONData {
 	entities: {
 		pages: Record<string, Page>;
 		anchors: Record<string, Anchor>;
 	};
 	topLevelIds: string[];
+}
+
+export interface TocData extends JSONData {
 	activeId: string | null;
 	openedIds: Set<string>;
 }
