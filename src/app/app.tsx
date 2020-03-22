@@ -40,7 +40,9 @@ export function App(): JSX.Element {
 			<div className={ s.app }>
 				<header className={ s.header }></header>
 				<main className={ s.main }>
-					<Toc/>
+					<nav className={ s.nav }>
+						<Toc/>
+					</nav>
 				</main>
 				<footer className={ s.footer }/>
 			</div>
