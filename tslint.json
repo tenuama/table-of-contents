@@ -38,7 +38,6 @@
 		"comment-type": false,
 		"completed-docs": false,
 		"curly": true,
-		"cyclomatic-complexity": [true, 13],
 		"deprecation": true,
 		"encoding": true,
 		"eofline": true,

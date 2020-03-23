@@ -2,7 +2,7 @@ import React, { useEffect, useImperativeHandle, useReducer } from 'react';
 import { Toc } from '../toc/toc';
 import { AppContext } from '../app-context';
 import { JSONData } from '../interfaces';
-import { appReducer, SET_ACTIVE_ID, SET_DATA } from '../reducer';
+import { appReducer, FIND_SUB_STRING, SET_ACTIVE_ID, SET_DATA } from '../reducer';
 
 import s from './app.module.scss';
 
@@ -25,12 +25,22 @@ export const App = React.forwardRef((props: object, ref: React.Ref<TocAPI>) => {
 				})
 				.then((json: JSONData) => {
 					if (isMounted) {
+						const map: Record<string, string> = {};
+						for (const page of Object.values(json.entities.pages)) {
+							if (!page.anchors) {
+								continue;
+							}
+							for (const anchor of page.anchors) {
+								map[anchor] = page.id;
+							}
+						}
 						dispatch({
 							type: SET_DATA,
 							payload: {
 								...json,
 								activeId: null,
 								openedIds: new Set(),
+								anchorToParentPage: map,
 							},
 						});
 					}
@@ -48,6 +58,14 @@ export const App = React.forwardRef((props: object, ref: React.Ref<TocAPI>) => {
 					type: SET_ACTIVE_ID,
 					payload: {
 						activeId: activeId,
+					},
+				});
+			},
+			findSubString: (subString: string) => {
+				dispatch({
+					type: FIND_SUB_STRING,
+					payload: {
+						subString: subString,
 					},
 				});
 			},

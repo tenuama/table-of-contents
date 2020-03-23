@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../app-context';
-import { assert } from '../helpers';
+import { applyFilter, assert, hasFilter } from '../helpers';
 import { SET_ACTIVE_ID, TOGGLE_PAGE } from '../reducer';
 import { TocElement } from '../toc-element/toc-element';
 import { AnchorElement } from '../anchor-element/anchor-element';
@@ -15,21 +15,24 @@ export function PageElement(props: PageElementProps): JSX.Element {
 	const { state, dispatch } = useContext(AppContext);
 	assert(state !== null, 'Page element render failed: state is null');
 	const page = state.entities.pages[props.id];
-	const { id, pages, anchors } = page;
+	const { id } = page;
 	const isActive = state.activeId === id;
-	const isOpened = state.openedIds.has(id);
+	const isFiltered = hasFilter(state.filteredIds) && state.filteredIds.has(id);
+	const isOpened = state.openedIds.has(id) || isFiltered;
 
-	const pageElements = pages && pages.map((pageId: string) => {
+	const pageElements = applyFilter(page.pages, state.filteredIds).map((pageId: string) => {
 		return (
 			<PageElement key={ pageId } id={ pageId }/>
 		);
 	});
 
-	const anchorElements = anchors && anchors.map((anchorId: string) => {
+	const anchorElements = applyFilter(page.anchors, state.filteredIds).map((anchorId: string) => {
 		return (
 			<AnchorElement key={ anchorId } id={ anchorId } pageId={ id }/>
 		);
 	});
+
+	const hasAnyChild = pageElements.length > 0 || anchorElements.length > 0;
 
 	return (
 		<React.Fragment>
@@ -39,13 +42,13 @@ export function PageElement(props: PageElementProps): JSX.Element {
 				url={ page.url }
 				isActive={ isActive }
 				isOpened={ isOpened }
-				isHighlighted={ isActive && anchors && isOpened }
+				isHighlighted={ isActive && anchorElements.length > 0 && isOpened }
 				onClick={ onClick }
-				onArrowClick={ pages ? onArrowClick : undefined }
+				onArrowClick={ hasAnyChild ? onArrowClick : undefined }
 			/>
-			{ pages && isOpened && (
+			{ hasAnyChild && isOpened && (
 				<ul className={ s.list }>
-					{ isActive && anchorElements }
+					{ (isActive || isFiltered) && anchorElements }
 					{ pageElements }
 				</ul>
 			) }

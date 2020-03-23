@@ -27,6 +27,8 @@ export interface JSONData {
 export interface TocData extends JSONData {
 	activeId: string | null;
 	openedIds: Set<string>;
+	filteredIds?: Set<string>;
+	anchorToParentPage: Record<string, string>;
 }
 
 export interface Action {
