@@ -53,10 +53,11 @@ function createState(): TocData {
 		topLevelIds: ['Root_page'],
 		activeId: null,
 		openedIds: new Set<string>(),
+		anchorToParentPage: {},
 	});
 }
 
-describe('Reduser ', () => {
+describe('Reducer ', () => {
 	test('sets data', () => {
 		const state = appReducer(null, { type: SET_DATA, payload: createState() });
 		expect(state).toEqual(state);
