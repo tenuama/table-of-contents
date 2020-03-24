@@ -1,4 +1,4 @@
-import { appReducer, SET_ACTIVE_ID, SET_DATA, TOGGLE_PAGE } from '../reducer';
+import { appReducer, FIND_SUB_STRING, SET_ACTIVE_ID, SET_DATA, TOGGLE_PAGE } from '../reducer';
 import { TocData } from '../interfaces';
 
 function createState(): TocData {
@@ -13,6 +13,9 @@ function createState(): TocData {
 					pages: [
 						'List_page_1',
 						'List_page_2',
+					],
+					anchors: [
+						'Anchor_1',
 					],
 				},
 				List_page_1: {
@@ -48,12 +51,22 @@ function createState(): TocData {
 					level: 1,
 				},
 			},
-			anchors: {},
+			anchors: {
+				Anchor_1: {
+					id: 'Anchor_1',
+					title: 'IntelliJ IDEA',
+					anchor: '#syntax',
+					url: 'contract-annotations.html',
+					level: 1,
+				},
+			},
 		},
 		topLevelIds: ['Root_page'],
 		activeId: null,
 		openedIds: new Set<string>(),
-		anchorToParentPage: {},
+		anchorToParentPage: {
+			Anchor_1: 'Root_page',
+		},
 	});
 }
 
@@ -111,5 +124,12 @@ describe('Reducer ', () => {
 		const state = appReducer(createState(), { type: SET_ACTIVE_ID, payload: { activeId: pageId } });
 		const page = state && state.entities.pages[pageId];
 		expect(state && page && page.parentId && state.openedIds.has(pageId) && state.openedIds.has(page.parentId)).toBeTruthy();
+	});
+
+	test('finds substring in titles & adds elements and their parents to the filtered', () => {
+		const subString = 'IntelliJ';
+		const state = appReducer(createState(), { type: FIND_SUB_STRING, payload: { subString: subString } });
+		const result = new Set(['List_page_1_1', 'List_page_1_2', 'List_page_1', 'Root_page', 'Anchor_1']);
+		expect(state && state.filteredIds).toEqual(result);
 	});
 });
