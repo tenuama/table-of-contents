@@ -8,6 +8,7 @@ import s from './app.module.scss';
 
 export interface TocAPI {
 	setActiveId: (activeId: string | null) => void;
+	findSubString: (subString: string) => void;
 }
 
 export const App = React.forwardRef((props: object, ref: React.Ref<TocAPI>) => {

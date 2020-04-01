@@ -39,7 +39,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## JS API
 
-These methods are available from `window.adi`:
+These methods are available from `window.api`:
 
 ### `setActiveId(activeId: string)`
 Makes the element active and opens the path to it.
